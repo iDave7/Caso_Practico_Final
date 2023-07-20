@@ -1,9 +1,6 @@
 import unittest
-
 from matriz_sumas import generar_matriz
 from matriz_sumas import calcular_sumas
-
-
 
 class TestMatrizSumas(unittest.TestCase):
 
@@ -33,11 +30,18 @@ class TestMatrizSumas(unittest.TestCase):
 
     def test_calcular_sumas_matriz_cuadrada_random(self):
         matriz = generar_matriz(5)
+        
+        # Calcular sumas manualmente
+        filas_suma_esperada = [sum(fila) for fila in matriz]
+        columnas_suma_esperada = [sum(columna) for columna in zip(*matriz)]
+
+        # Obtener sumas calculadas por la función
         filas_suma, columnas_suma = calcular_sumas(matriz)
-        for suma in filas_suma:
-            self.assertEqual(len(matriz), suma)
-        for suma in columnas_suma:
-            self.assertLessEqual(suma, 45)  # La suma máxima sería 9+9+9+9+9 = 45
+
+        # Comparar con los valores esperados
+        self.assertEqual(filas_suma, filas_suma_esperada)
+        self.assertEqual(columnas_suma, columnas_suma_esperada)
+
 
 if __name__ == "__main__":
     unittest.main()
